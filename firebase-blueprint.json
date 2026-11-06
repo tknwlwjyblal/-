@@ -1,0 +1,143 @@
+{
+  "entities": {
+    "user": {
+      "title": "User Profile",
+      "description": "User profile with contact, payout destination details, and account suspension status",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "operator": { "type": "string", "maxLength": 50 },
+        "payoutType": { "type": "string", "enum": ["bank", "wallet"] },
+        "institution": { "type": "string", "maxLength": 50 },
+        "institutionName": { "type": "string", "maxLength": 100 },
+        "accountNumber": { "type": "string", "maxLength": 50 },
+        "beneficiaryName": { "type": "string", "maxLength": 100 },
+        "isVerified": { "type": "boolean" },
+        "isSuspended": { "type": "boolean" },
+        "suspendedReason": { "type": "string", "maxLength": 300 },
+        "avatar": { "type": "string", "maxLength": 500 }
+      },
+      "required": ["id", "fullName", "email"]
+    },
+    "circle": {
+      "title": "Savings Circle",
+      "description": "Rotating savings and credit association circle",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["collective", "solo"] },
+        "currency": { "type": "string", "enum": ["YER", "SAR", "USD"] },
+        "currencySymbol": { "type": "string", "maxLength": 10 },
+        "monthlyShare": { "type": "number" },
+        "sharePrice": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "monthlyPayout": { "type": "number" },
+        "totalPool": { "type": "number" },
+        "totalMonths": { "type": "number" },
+        "completedMonths": { "type": "number" },
+        "membersCount": { "type": "number" },
+        "paidMembersThisMonthCount": { "type": "number" },
+        "code": { "type": "string", "maxLength": 30 },
+        "status": { "type": "string", "enum": ["active", "completed", "draft"] },
+        "isConfirmedByAdmin": { "type": "boolean" },
+        "turnsAssigned": { "type": "boolean" }
+      },
+      "required": ["id", "title", "currency", "totalPool", "code"]
+    },
+    "payment": {
+      "title": "Payment Submission",
+      "description": "Payment installment voucher submission with cashier verification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "circleId": { "type": "string", "maxLength": 100 },
+        "circleTitle": { "type": "string", "maxLength": 100 },
+        "amount": { "type": "number" },
+        "currencySymbol": { "type": "string", "maxLength": 10 },
+        "trxId": { "type": "string", "maxLength": 50 },
+        "method": { "type": "string", "enum": ["bank", "wallet", "cash"] },
+        "receiptFileName": { "type": "string", "maxLength": 100 },
+        "receiptFileSize": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["under_review", "approved", "rejected"] },
+        "submittedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "circleId", "amount", "trxId", "status"]
+    },
+    "notification": {
+      "title": "Notification",
+      "description": "User notification regarding circle events or dues",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "message": { "type": "string", "maxLength": 500 },
+        "time": { "type": "string", "maxLength": 50 },
+        "type": { "type": "string", "maxLength": 50 },
+        "isRead": { "type": "boolean" },
+        "circleId": { "type": "string", "maxLength": 100 }
+      },
+      "required": ["id", "title", "message", "isRead"]
+    },
+    "system_log": {
+      "title": "System Log & Error Entry",
+      "description": "System audit logs and error entries for super admin monitoring",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "level": { "type": "string", "enum": ["info", "warning", "error"] },
+        "title": { "type": "string", "maxLength": 200 },
+        "details": { "type": "string", "maxLength": 2000 },
+        "path": { "type": "string", "maxLength": 200 },
+        "userEmail": { "type": "string", "maxLength": 100 },
+        "timestamp": { "type": "string", "maxLength": 60 },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "level", "title", "createdAt"]
+    },
+    "app_setting": {
+      "title": "Global Application Settings",
+      "description": "Global switches controlled by the Super Admin",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "maintenanceMode": { "type": "boolean" },
+        "allowCreateCircles": { "type": "boolean" },
+        "allowJoinCircles": { "type": "boolean" },
+        "announcementText": { "type": "string", "maxLength": 500 },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["id"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/user" },
+      "description": "User profile documents"
+    },
+    "/circles/{circleId}": {
+      "schema": { "$ref": "#/entities/circle" },
+      "description": "Savings circle pools"
+    },
+    "/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/payment" },
+      "description": "Payment proof submissions"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/notification" },
+      "description": "Activity alerts and notifications"
+    },
+    "/system_logs/{logId}": {
+      "schema": { "$ref": "#/entities/system_log" },
+      "description": "Application error and audit logs"
+    },
+    "/app_settings/{settingId}": {
+      "schema": { "$ref": "#/entities/app_setting" },
+      "description": "Global application settings controlled by Super Admin"
+    }
+  }
+}
