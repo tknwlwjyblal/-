@@ -62,9 +62,13 @@ service cloud.firestore {
       allow delete: if isSignedIn() && isValidId(paymentId) && isSuperAdmin();
     }
 
-    // Notifications collection
+    // Notification reads must be scoped to the actual recipient (or the administrator).
     match /notifications/{notificationId} {
-      allow get, list: if isSignedIn();
+      allow get, list: if isSignedIn() && (isSuperAdmin()
+        || ('userId' in resource.data && resource.data.userId == request.auth.uid)
+        || ('userEmail' in resource.data && 'email' in request.auth.token
+          && (resource.data.userEmail == request.auth.token.email
+            || resource.data.userEmail == request.auth.token.email.lower())));
       allow create, update: if isSignedIn() && isValidId(notificationId);
       allow delete: if isSignedIn() && isValidId(notificationId);
     }

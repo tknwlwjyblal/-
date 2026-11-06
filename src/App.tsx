@@ -52,6 +52,9 @@ import {
   deleteDoc,
   collection,
   onSnapshot,
+  query,
+  where,
+  or,
 } from 'firebase/firestore';
 
 export default function App() {
@@ -188,6 +191,12 @@ export default function App() {
 
     let previousDeviceUid: string | undefined;
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      setNotifications([]);
+      unsubscribeUserDoc?.(); unsubscribeUserDoc = null;
+      unsubscribeCircles?.(); unsubscribeCircles = null;
+      unsubscribeNotifs?.(); unsubscribeNotifs = null;
+      unsubscribePayments?.(); unsubscribePayments = null;
+      unsubscribeSettings?.(); unsubscribeSettings = null;
       if (previousDeviceUid && previousDeviceUid !== user?.uid) await unregisterDevice().catch(() => {});
       previousDeviceUid = user?.uid;
       if (user) {
@@ -265,11 +274,17 @@ export default function App() {
         );
 
         // 3. Real-time sync for notifications with strict role-based separation
-        const notifsCol = collection(db, 'notifications');
+        const recipientFilters = [where('userId', '==', user.uid)];
+        if (user.email) {
+          recipientFilters.push(where('userEmail', '==', user.email));
+          if (user.email !== user.email.trim().toLowerCase()) recipientFilters.push(where('userEmail', '==', user.email.trim().toLowerCase()));
+        }
+        const notifsCol = query(collection(db, 'notifications'), or(...recipientFilters));
         let hasNotificationsSnapshot = false;
         unsubscribeNotifs = onSnapshot(
           notifsCol,
           (snapshot) => {
+            if (auth.currentUser?.uid !== user.uid) return;
             const remoteNotifs: AppNotification[] = [];
             // Managed circle IDs for the current user (where current user is organizer)
             const myManagedCircleIds = new Set(
@@ -303,20 +318,7 @@ export default function App() {
                 });
               }
             });
-            if (remoteNotifs.length > 0) {
-              setNotifications((prev) => {
-                const map = new Map(remoteNotifs.map((n) => [n.id, n]));
-                const remaining = prev.filter(
-                  (p) =>
-                    !map.has(p.id) &&
-                    !p.id.startsWith('n-mock') &&
-                    isNotificationForUser(p, user.uid, user.email, myManagedCircleIds)
-                );
-                return [...remoteNotifs, ...remaining];
-              });
-            } else {
-              setNotifications([]);
-            }
+            setNotifications(remoteNotifs);
           },
           (error) => {
             console.warn('Notifications real-time sync warning:', error);
@@ -354,26 +356,6 @@ export default function App() {
         );
       } else {
         setIsAuthenticated(false);
-        if (unsubscribeUserDoc) {
-          unsubscribeUserDoc();
-          unsubscribeUserDoc = null;
-        }
-        if (unsubscribeCircles) {
-          unsubscribeCircles();
-          unsubscribeCircles = null;
-        }
-        if (unsubscribeNotifs) {
-          unsubscribeNotifs();
-          unsubscribeNotifs = null;
-        }
-        if (unsubscribePayments) {
-          unsubscribePayments();
-          unsubscribePayments = null;
-        }
-        if (unsubscribeSettings) {
-          unsubscribeSettings();
-          unsubscribeSettings = null;
-        }
       }
     });
 
@@ -491,6 +473,7 @@ export default function App() {
     }
 
     const newNotif: AppNotification = {
+      userId: auth.currentUser?.uid,
       id: `n-${Date.now()}`,
       title: 'تم إنشاء جمعيتك بنجاح! 🎉',
       message: `تم تفعيل رمز الدعوة [ ${newCircle.code} ] لجمعية "${newCircle.title}". شارك الكود مع الأهل والأصدقاء للانضمام.`,
@@ -576,6 +559,7 @@ export default function App() {
     }
 
     const newNotif: AppNotification = {
+      userId: auth.currentUser?.uid,
       id: `n-${Date.now()}`,
       title: 'انضممت لجمعية بنجاح 🌟',
       message: `تم تأكيد مقعدك في "${joinedCircle.title}". سيبدأ تذكيرك بمواعيد الأقساط وجدول الأدوار بدقة.`,
@@ -603,6 +587,7 @@ export default function App() {
     }
 
     const newNotif: AppNotification = {
+      userId: auth.currentUser?.uid,
       id: `n-${Date.now()}`,
       title: 'تم حذف الجمعية 🗑️',
       message: 'تم حذف الجمعية بنجاح من قاعدة البيانات وإلغاؤها.',
@@ -617,6 +602,9 @@ export default function App() {
   };
 
   const handleMarkAllNotifsRead = () => {
+    for (const notification of notifications.filter(item => !item.isRead)) {
+      void updateDoc(doc(db, 'notifications', notification.id), { isRead: true }).catch(() => {});
+    }
     setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
     setToastMessage('تم تحديد كافة الإشعارات كمقروءة');
   };
@@ -792,6 +780,7 @@ export default function App() {
               userProfile={userProfile}
               onOpenSearch={() => setIsSearchOpen(true)}
               title={getScreenTitle()}
+              unreadCount={unreadCount}
             />
 
             {/* Active Screen View */}
@@ -818,6 +807,7 @@ export default function App() {
 
               {currentView === 'my-circles' && (
                 <HomeView
+                  showOverview={false}
                   circles={myVisibleCircles}
                   pendingConfirmationCount={pendingConfirmationCount}
                   payments={payments}

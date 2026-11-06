@@ -31,3 +31,23 @@ test('Android accepts an explicit recipient and scoped organizer; no ambiguous m
  assert.equal(isNativeNotificationRecipient({ ...base, targetRole: 'organizer', circleId: 'circle' }, 'alice', null, new Set(['circle'])), true);
  assert.equal(isNativeNotificationRecipient({ ...base, targetRole: 'member' }, 'alice'), false);
 });
+
+import { isNotificationForUser } from '../../src/types.ts';
+test('inbox never falls through to a member role after UID mismatch', () => {
+ for (const type of ['system', 'payment_approved', 'turn_alert'] as const) {
+  assert.equal(isNotificationForUser({ ...base, type, userId: 'bob', targetRole: 'member', title: 'تم تعميد واعتماد قسطك' }, 'alice'), false);
+ }
+});
+test('inbox UID has priority over a mismatched email', () => assert.equal(isNotificationForUser({ ...base, userId: 'bob', userEmail: 'alice@example.com' }, 'alice', 'alice@example.com'), false));
+test('legacy email notifications match only their owner', () => {
+ assert.equal(isNotificationForUser({ ...base, userEmail: ' Alice@Example.com ' }, 'alice', 'alice@example.com'), true);
+ assert.equal(isNotificationForUser({ ...base, userEmail: 'bob@example.com', targetRole: 'member' }, 'alice', 'alice@example.com'), false);
+});
+test('unaddressed member and all-role records are not broadcast', () => {
+ for (const targetRole of ['member', 'all'] as const) assert.equal(isNotificationForUser({ ...base, targetRole }, 'alice'), false);
+});
+test('inbox organizer fallback requires an owned circle', () => {
+ assert.equal(isNotificationForUser({ ...base, targetRole: 'organizer', circleId: 'mine' }, 'alice', null, new Set(['mine'])), true);
+ assert.equal(isNotificationForUser({ ...base, targetRole: 'organizer', circleId: 'other' }, 'alice', null, new Set(['mine'])), false);
+});
+test('signed-out user has no inbox even with matching email', () => assert.equal(isNotificationForUser({ ...base, userEmail: 'alice@example.com' }, null, 'alice@example.com'), false));

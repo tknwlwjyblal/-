@@ -1,5 +1,5 @@
-tajawal
-Google Inc.
+cairo
+Copyright 2009 The Cairo Project Authors (https://github.com/Gue3bara/Cairo)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

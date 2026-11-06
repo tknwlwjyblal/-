@@ -20,6 +20,7 @@
     "@capacitor/core": "8",
     "@capacitor/local-notifications": "8",
     "@capacitor/push-notifications": "8",
+    "@fontsource/cairo": "5",
     "@fontsource/material-symbols-outlined": "5",
     "@fontsource/tajawal": "5",
     "@google/genai": "^2.4.0",

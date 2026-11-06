@@ -8,6 +8,7 @@ interface Props {
   userProfile: UserProfile;
   onOpenSearch: () => void;
   title?: string;
+  unreadCount?: number;
 }
 
 export const Header: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const Header: React.FC<Props> = ({
   userProfile,
   onOpenSearch,
   title,
+  unreadCount = 0,
 }) => {
   const isHome = currentView === 'home';
   const isSuperAdmin = isSuperAdminEmail(userProfile.email || auth.currentUser?.email);
@@ -28,7 +30,7 @@ export const Header: React.FC<Props> = ({
           {isProfileDone ? (
             <button
               onClick={() => onNavigate('home')}
-              className="w-10 h-10 flex items-center justify-center rounded-full text-[#1c1c18] hover:bg-[#ebe8e2] active:scale-95 transition-all -mr-2 cursor-pointer"
+              className="w-9 h-9 flex items-center justify-center rounded-full text-[#1c1c18] hover:bg-[#ebe8e2] active:scale-95 transition-all -mr-2 cursor-pointer"
               aria-label="الرجوع"
             >
               <span className="material-symbols-outlined text-2xl">arrow_forward</span>
@@ -48,33 +50,15 @@ export const Header: React.FC<Props> = ({
           </div>
         </div>
       ) : isHome ? (
-        <div className="flex items-center gap-2.5 min-w-0 flex-1">
-          <button
-            onClick={() => onNavigate('profile')}
-            className="relative active:scale-95 transition-transform"
-            aria-label="الإعدادات والحساب"
-          >
-            <img
-              src={userProfile.avatar}
-              alt={userProfile.fullName}
-              className="w-10 h-10 rounded-full object-cover ring-2 ring-[#714a23]/25 shadow-sm"
-            />
-            <span className="absolute bottom-0 left-0 w-2.5 h-2.5 rounded-full bg-emerald-600 ring-2 ring-white"></span>
-          </button>
-          <div className="flex flex-col text-right min-w-0">
-            <span className="text-[10px] font-bold text-[#50453b] flex items-center gap-1">
-              مرحباً بعودتك <span className="text-xs">✨</span>
-            </span>
-            <h1 className="truncate text-base font-black text-[#1c1c18] leading-tight">
-              {userProfile.fullName.split(' ').slice(0, 2).join(' ')}
-            </h1>
-          </div>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold text-[#392b1e]">هيا نجمعها</h1>
+          <p className="text-[11px] text-[#8b7d6c] truncate mt-1">أهلاً، {userProfile.fullName.split(' ').slice(0, 2).join(' ')}</p>
         </div>
       ) : (
         <div className="flex items-center gap-2 min-w-0">
           <button
             onClick={() => onNavigate('home')}
-            className="w-10 h-10 flex items-center justify-center rounded-full text-[#714a23] hover:bg-[#ebe8e2] active:scale-95 transition-all"
+            className="w-9 h-9 flex items-center justify-center rounded-full text-[#714a23] hover:bg-[#ebe8e2] active:scale-95 transition-all"
             aria-label="رجوع"
           >
             <span className="material-symbols-outlined text-2xl">arrow_forward</span>
@@ -107,7 +91,7 @@ export const Header: React.FC<Props> = ({
           <button
             onClick={onOpenSearch}
             aria-label="البحث"
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#f6f3ed] text-[#50453b] hover:text-[#714a23] active:scale-95 transition-all shadow-xs border border-[#d4c3b7]/20"
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#f6f3ed] text-[#50453b] hover:text-[#714a23] active:scale-95 transition-all shadow-xs border border-[#d4c3b7]/20"
           >
             <span className="material-symbols-outlined text-xl">search</span>
           </button>
@@ -115,19 +99,13 @@ export const Header: React.FC<Props> = ({
           <button
             onClick={() => onNavigate('notifications')}
             aria-label="الإشعارات"
-            className="relative w-10 h-10 rounded-xl bg-[#ebe8e2] flex items-center justify-center text-[#714a23] active:scale-95 transition-all shadow-xs border border-[#d4c3b7]/20"
+            className="relative w-9 h-9 rounded-xl bg-[#ebe8e2] flex items-center justify-center text-[#714a23] active:scale-95 transition-all shadow-xs border border-[#d4c3b7]/20"
           >
             <span className="material-symbols-outlined text-xl">notifications</span>
-            <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#ba1a1a] ring-2 ring-white" />
+            {unreadCount > 0 && <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 text-[9px] flex items-center justify-center rounded-full bg-[#714a23] text-white ring-2 ring-[#fcf9f3]">{unreadCount > 99 ? '99+' : unreadCount}</span>}
           </button>
 
-          <div className="w-10 h-10 rounded-xl bg-[#ebe8e2] flex items-center justify-center p-1 shadow-xs border border-[#d4c3b7]/20">
-            <img
-              src="/assets/aistudio/image_94928b82.png"
-              alt="شعار هيا نجمعها الرسمي"
-              className="w-full h-full object-contain rounded-lg"
-            />
-          </div>
+
         </div>
       )}
 

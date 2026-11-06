@@ -78,9 +78,10 @@ export function nativeNotificationId(value: string) {
   return (hash >>> 0) % 2000000000 + 1;
 }
 
-export async function showAccountNotification(notification: Pick<AppNotification, 'id' | 'title' | 'message' | 'isRead' | 'circleId'>) {
+export async function showAccountNotification(notification: Pick<AppNotification, 'id' | 'title' | 'message' | 'isRead' | 'circleId'> & { userId?: string }) {
   const uid = auth.currentUser?.uid;
   if (!isAndroidApp() || !uid || !enabled(uid) || notification.isRead) return;
+  if (notification.userId && notification.userId !== uid) return;
   const key = `haya:delivered:${uid}`;
   const seen: string[] = JSON.parse(localStorage.getItem(key) || '[]');
   const pendingKey = `${uid}:${notification.id}`;

@@ -12,7 +12,7 @@ interface Props {
 export const BottomNav: React.FC<Props> = ({
   currentView,
   onNavigate,
-  unreadCount = 2,
+  unreadCount = 0,
   userEmail,
 }) => {
   const isSuperAdmin = isSuperAdminEmail(userEmail || auth.currentUser?.email);
@@ -42,8 +42,8 @@ export const BottomNav: React.FC<Props> = ({
   ];
 
   return (
-    <nav className="app-bottom-nav fixed bottom-0 mx-auto z-40 bg-[#fcf9f3]/95 backdrop-blur-xl border-t border-[#714a23]/10 shadow-[0_-4px_24px_rgba(92,61,46,0.08)] pb-safe select-none">
-      <div className="flex justify-around items-center h-16 px-2">
+    <nav className="app-bottom-nav fixed bottom-0 mx-auto z-40 bg-[#fcf9f3]/95 backdrop-blur-xl rounded-t-[22px] border-t border-[#714a23]/10 shadow-[0_-4px_24px_rgba(92,61,46,0.08)] pb-safe select-none">
+      <div className="flex justify-around items-center h-14 px-2">
         {tabs.map((tab) => {
           const isActive =
             currentView === tab.id ||
@@ -60,7 +60,7 @@ export const BottomNav: React.FC<Props> = ({
             >
               <div className="relative flex items-center justify-center">
                 <span
-                  className="material-symbols-outlined text-[23px]"
+                  className="material-symbols-outlined text-[21px]"
                   style={isActive ? { fontVariationSettings: "'FILL' 1" } : undefined}
                 >
                   {tab.icon}
@@ -71,7 +71,7 @@ export const BottomNav: React.FC<Props> = ({
                   </span>
                 ) : null}
               </div>
-              <span className={`text-[11px] mt-0.5 ${isActive ? 'font-extrabold' : 'font-medium'}`}>
+              <span className={`text-[10px] mt-1 ${isActive ? 'font-extrabold' : 'font-medium'}`}>
                 {tab.label}
               </span>
             </button>

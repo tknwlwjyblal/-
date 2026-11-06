@@ -339,55 +339,13 @@ export function isNotificationForUser(
   userEmail?: string | null,
   managedCircleIds?: Set<string>
 ): boolean {
-  if (!notif) return false;
-  const cleanEmail = userEmail?.trim().toLowerCase();
-
-  // 1. If notification was sent BY this user to the other role, never display it in sender's inbox!
-  if (userUid && notif.senderId && notif.senderId === userUid) {
-    if (notif.targetRole === 'member' && notif.userId !== userUid) return false;
-    if (notif.targetRole === 'organizer' && notif.userId !== userUid) return false;
-  }
-
-  // 2. Explicit User ID match
-  if (userUid && notif.userId && notif.userId === userUid) {
-    return true;
-  }
-
-  // 3. Explicit User Email match
-  if (cleanEmail && notif.userEmail && notif.userEmail.trim().toLowerCase() === cleanEmail) {
-    return true;
-  }
-
-  // 4. Role-based matching for legacy/circle-level notifications:
-  const isOrganizerNotif =
-    notif.targetRole === 'organizer' ||
-    notif.title.includes('إشعار سداد قسط جديد') ||
-    notif.title.includes('انضمام مشترك جديد') ||
-    notif.message.includes('بانتظار اعتمادك') ||
-    notif.message.includes('وينتظر تعميدك');
-
-  const isMemberNotif =
-    notif.targetRole === 'member' ||
-    notif.title.includes('تم تعميد جمعية') ||
-    notif.title.includes('تم تعميد واعتماد قسطك') ||
-    notif.title.includes('تم تعميد انضمامك') ||
-    notif.message.includes('اعتمد منظم الجمعية') ||
-    notif.message.includes('قام منظم الجمعية بتعميد انضمامك');
-
-  const userIsOrganizerOfThisCircle = Boolean(
-    notif.circleId && managedCircleIds && managedCircleIds.has(notif.circleId)
-  );
-
-  if (isOrganizerNotif) {
-    return userIsOrganizerOfThisCircle;
-  }
-
-  if (isMemberNotif) {
-    // If the user is the organizer who approved this, suppress it!
-    return !userIsOrganizerOfThisCircle;
-  }
-
-  return Boolean(userUid && notif.userId === userUid);
+  if (!notif || !userUid) return false;
+  // An explicit recipient is authoritative. Never fall through to a broad role match.
+  if (notif.userId) return notif.userId === userUid;
+  if (notif.userEmail) return Boolean(userEmail && notif.userEmail.trim().toLowerCase() === userEmail.trim().toLowerCase());
+  // Legacy organizer-only records can be scoped to an owned circle. Member/all
+  // records without an explicit recipient must not enter another user's inbox.
+  return notif.targetRole === 'organizer' && Boolean(notif.circleId && managedCircleIds?.has(notif.circleId));
 }
 
 export type ActiveView = 
