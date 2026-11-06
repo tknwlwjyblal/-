@@ -1,0 +1,49 @@
+# بناء تطبيق هيا نجمعها لنظام Android
+
+المشروع الأساسي React/Vite. مشروع `android/` يستخدم Capacitor ويضم ملفات الويب المبنية داخل APK؛ لا يعتمد على رابط AI Studio المؤقت. المجلد `flutter_app/` محفوظ من الأرشيف المرفق، لكنه ليس مسار البناء المستخدم ويحتوي إعداد Flutter جزئيًا فقط.
+
+## المتطلبات
+
+- Node.js 24، وBun 1.4.4 (ملف `bun.lock` هو مرجع الاعتماديات).
+- JDK 21.
+- Android SDK Platform 36 وBuild Tools 35.0.0 أو ما يطلبه Gradle.
+- ضبط `ANDROID_HOME` أو إنشاء `android/local.properties` يحوي `sdk.dir=/path/to/android-sdk`.
+
+## بناء APK تجريبي
+
+```bash
+bun install --frozen-lockfile
+npm run lint
+npm run android:debug
+```
+
+المخرج: `android/app/build/outputs/apk/debug/app-debug.apk`.
+المعرّف: `com.hayanajmaha.app`. الحد الأدنى Android 7.0 (API 24).
+النسخة التجريبية موقعة بشهادة التطوير؛ ليست إصدار متجر Google Play.
+
+## تفعيل تسجيل الدخول عبر Google
+
+تسجيل الدخول مطلوب لاستخدام التطبيق. إعداد الويب الموجود لا يكفي لتفعيل Google على Android:
+
+1. من مشروع Firebase الحالي، سجّل تطبيق Android بالمعرّف `com.hayanajmaha.app`.
+2. أضف بصمتي SHA-1 وSHA-256 لشهادة التوقيع المستخدمة. للحصول على بصمة البناء التجريبي:
+   ```bash
+   cd android
+   ./gradlew signingReport
+   ```
+3. فعّل موفّر Google في Firebase Authentication، ثم نزّل ملف `google-services.json` المحدث إلى `android/app/google-services.json`. يجب أن يتضمن OAuth Web client (`client_type: 3`). لا تضع ملف حساب خدمة أو مفتاح خادم مكانه.
+4. أعد `npm run android:debug` وثبّت APK الجديد. اختبر الدخول على هاتف مع Google Play Services ثم اختبر عمليات الجمعيات ورفع الإيصالات وصلاحيات Firestore بحسابك.
+
+ملف إعداد Android وشهادات التوقيع مستثناة من Git. إذا كان ملف إعداد Firebase غير موجود عند البناء، لا يتم تحميل إضافة المصادقة الأصلية لتفادي تعطل التطبيق؛ يظهر تنبيه واضح عند محاولة الدخول. يبقى إعداد OAuth واختبار حساب حقيقي مطلوبين قبل الاستخدام الفعلي.
+
+## إصدار للنشر
+
+`npm run android:release` ينشئ إصدارًا غير موقّع افتراضيًا. وقّعه بمفتاح إصدار تملكه باستخدام Android Studio أو أدوات Android الرسمية، وأضف بصمته إلى Firebase ثم أعد تنزيل الإعدادات والبناء. احتفظ بالمفتاح وكلمة مروره خارج المستودع؛ يلزمان لتحديث التطبيق مستقبلًا.
+
+## التحقق
+
+`npm run lint` يتحقق من الأنواع، و`npm run build` يبني الويب. ينسخ `npm run android:sync` البناء إلى Android؛ لا تعدّل الملفات المنسوخة داخل `android/app/src/main/assets/public` يدويًا. نجاح البناء لا يثبت عمل OAuth أو قواعد Firebase أو المدفوعات على جهاز حقيقي.
+
+## البناء الآلي
+
+يوجد سير عمل GitHub Actions باسم **Android debug APK** يعمل عند الرفع إلى `main` أو يدويًا. ينشر APK ضمن Artifacts. يمكن توفير إعداد Firebase عبر Repository secret باسم `GOOGLE_SERVICES_JSON`. تختلف شهادة Debug للعدّاء عن شهادة APK المرفق؛ يجب تسجيل بصمة الشهادة المستخدمة فعليًا أو إعداد مفتاح إصدار ثابت قبل التوزيع.

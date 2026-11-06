@@ -18,3 +18,12 @@ View your app in AI Studio: https://ai.studio/apps/0a3c0d30-3145-41b0-ac2f-a8de9
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Android APK
+
+Full application source and assets are included. See [ANDROID.md](ANDROID.md) for reproducible APK builds, Firebase Android registration, signing, and current validation limits.
+
+```bash
+bun install --frozen-lockfile
+npm run android:debug
+```

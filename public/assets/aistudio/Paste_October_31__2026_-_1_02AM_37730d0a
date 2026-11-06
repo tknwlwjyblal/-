@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-container": "#d4e3e2", "surface-variant": "#e5e2dc", "primary-fixed-dim": "#f1bc8c", "secondary": "#536161", "on-primary-fixed": "#2d1600", "primary": "#714a23", "tertiary": "#6d4c0d", "outline-variant": "#d4c3b7", "surface-container-highest": "#e5e2dc", "surface-container-lowest": "#ffffff", "tertiary-container": "#896425", "on-tertiary-fixed-variant": "#604101", "on-secondary-fixed-variant": "#3c4949", "on-primary-fixed-variant": "#633f19", "tertiary-fixed": "#ffdeae", "on-error-container": "#93000a", "surface-dim": "#dcdad4", "inverse-on-surface": "#f3f0ea", "surface-bright": "#fcf9f3", "secondary-fixed": "#d7e5e5", "on-tertiary-container": "#ffe9cd", "on-primary-container": "#ffe8d7", "on-secondary": "#ffffff", "on-surface": "#1c1c18", "error": "#ba1a1a", "surface-container-low": "#f6f3ed", "on-background": "#1c1c18", "inverse-primary": "#f1bc8c", "tertiary-fixed-dim": "#edbf76", "background": "#fcf9f3", "on-secondary-fixed": "#111e1e", "inverse-surface": "#31312d", "surface-container-high": "#ebe8e2", "surface": "#fcf9f3", "on-primary": "#ffffff", "primary-container": "#8c6239", "on-secondary-container": "#576565", "surface-tint": "#7e562e", "surface-container": "#f0eee8", "error-container": "#ffdad6", "on-tertiary": "#ffffff", "secondary-fixed-dim": "#bbc9c9", "outline": "#82756a", "on-surface-variant": "#50453b", "on-tertiary-fixed": "#281900", "primary-fixed": "#ffdcbf", "on-error": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "space-xl": "2.25rem", "space-md": "1rem", "margin": "1.25rem", "space-xs": "0.25rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "label-sm": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "headline-md": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "label-lg": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "display-lg-mobile": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "label-md": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "body-md": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "headline-lg": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "body-lg": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "headline-sm": ["Plus Jakarta Sans", "Tajawal", "sans-serif"], "display-lg": ["Plus Jakarta Sans", "Tajawal", "sans-serif"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "32px", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "display-lg-mobile": ["30px", { "lineHeight": "40px", "fontWeight": "800" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "38px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "display-lg": ["40px", { "lineHeight": "52px", "fontWeight": "800" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(92,61,46,0.05)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="رجوع" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_forward_ios</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface font-bold">دفع القسط الشهري</h1></div><div class="flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-container/20" src="https://lh3.googleusercontent.com/aida/AEtjO1Ww3TkEGyMAhTV0nqpkOW8ZcGXaD-B3VhW46A_41f5OZ9mZpqaC7U5gDoNS2z9pb2NX5wMkY20soJlSnXPLPAga7GzQjTqtBwqBuD3IzvFqwaggL0859iVHNsqTln-53_PSa1VZFmoUGn1wd7arCeOQ4jSJtNXHLqlcy5FpQO1Szty-hzA1DPuVEFDgd0N-hNeGbWy1RsS5vtVy58MYad71us9zd8L1ucFQ9K_iHLvg2oBgKiXLqWR5UNfZbb6kdQRxpWYHEvTR"/></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface pb-safe"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-xl flex flex-col gap-space-lg">
+<!-- Brand Mottos & Cultural Touchstone -->
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">handshake</span>
+<span class="font-label-lg text-label-lg font-bold">هيا نجمعها</span>
+<span class="text-outline text-body-sm">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">معًا .. نكمل الخير</span>
+</div>
+<div class="inline-flex items-center gap-space-xs bg-secondary-container px-space-sm py-1 rounded-full text-on-secondary-container">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+<span class="font-label-sm text-label-sm font-bold">موثوق وآمن</span>
+</div>
+</div>
+<!-- 1. Header Card: ملخص القسط المستحق -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-lg shadow-[0_4px_20px_-2px_rgba(92,61,46,0.07)] flex flex-col gap-space-md">
+<!-- Architectural Filigree Accent Background Pattern -->
+<div class="absolute -top-12 -left-12 w-36 h-36 rounded-full bg-primary-fixed-dim/20 pointer-events-none blur-2xl"></div>
+<div class="absolute -bottom-8 -right-8 w-28 h-28 rounded-full bg-tertiary-fixed/30 pointer-events-none blur-xl"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="font-label-md text-label-md px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-bold">قسط شهر رجب</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">الدفعة ٤ من ١٠</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">صندوق العائلة التكافلي</h2>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+</div>
+<!-- Amount Section -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex items-center justify-between relative z-10">
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-0.5">المبلغ المطلوب سداده</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-bold">25,000</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold">ر.ي</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="inline-flex items-center gap-1 bg-tertiary-fixed-dim/30 text-on-tertiary-fixed-variant px-space-sm py-1 rounded-full font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">hourglass_top</span>
+<span>متبقي ٤ أيام</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">آخر موعد: ٥ رجب ١٤٤٦</span>
+</div>
+</div>
+<!-- Member Turn Mini-Bar -->
+<div class="flex items-center justify-between pt-1 relative z-10">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center font-bold">
+            أ
+          </div>
+<span class="font-body-sm text-body-sm text-on-surface">المستلم هذا الشهر: <strong class="font-bold text-primary">أحمد الشامي</strong></span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">دوري القادم: الشهر ٦</span>
+</div>
+</div>
+<!-- 2. Cashier Accounts Details: تفاصيل الحساب للتحويل -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-[0_4px_20px_-2px_rgba(92,61,46,0.07)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">credit_card</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">بيانات تحويل القسط</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">المنظم المعتمد للمجموعة</span>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-bold">عمر اليافعي</span>
+</div>
+</div>
+<!-- Account 1: بنك الكريمي -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">بنك الكريمي للتمويل</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md text-body-md font-bold tracking-wider text-primary select-all" id="kuraimi-acc">300482910</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">(حساب جاري)</span>
+</div>
+</div>
+</div>
+<button aria-label="نسخ رقم حساب بنك الكريمي" class="px-space-md py-space-xs rounded-lg bg-surface-container-lowest hover:bg-surface-variant text-primary font-label-md text-label-md font-bold shadow-sm transition-all flex items-center gap-1 active:scale-95" onclick="copyToClipboard('300482910', this)">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>نسخ</span>
+</button>
+</div>
+<!-- Account 2: محفظة جيب / كاش -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-tertiary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">phone_android</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">محفظة جيب / كاش (التضامن)</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md text-body-md font-bold tracking-wider text-primary select-all" id="wallet-acc">771234567</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">(رقم المحفظة)</span>
+</div>
+</div>
+</div>
+<button aria-label="نسخ رقم المحفظة" class="px-space-md py-space-xs rounded-lg bg-surface-container-lowest hover:bg-surface-variant text-primary font-label-md text-label-md font-bold shadow-sm transition-all flex items-center gap-1 active:scale-95" onclick="copyToClipboard('771234567', this)">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>نسخ</span>
+</button>
+</div>
+<!-- Notice Advice -->
+<div class="flex items-center gap-space-xs bg-tertiary-fixed/30 p-space-sm rounded-lg text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[18px] shrink-0">info</span>
+<p class="font-body-sm text-body-sm font-medium">يرجى كتابة اسمك الثلاثي في وصف الحوالة لتسريع اعتماد القسط وتوثيقه تلقائياً.</p>
+</div>
+</div>
+<!-- 3. Payment Submission Form: إدخال بيانات التحويل والإيصال -->
+<form class="rounded-xl bg-surface-container-lowest p-space-lg shadow-[0_4px_20px_-2px_rgba(92,61,46,0.07)] flex flex-col gap-space-md" id="payment-form" onsubmit="handlePaymentSubmit(event)">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">receipt_long</span>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">إثبات سداد القسط</h3>
+</div>
+<!-- Payment Method Toggle -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface font-bold">طريقة التحويل المستخدمة</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="method-btn py-space-sm px-1 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold flex flex-col items-center gap-1 transition-all shadow-sm" onclick="selectMethod('bank', this)" type="button">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+<span class="truncate">تحويل بنكي</span>
+</button>
+<button class="method-btn py-space-sm px-1 rounded-lg bg-surface-container hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md font-medium flex flex-col items-center gap-1 transition-all" onclick="selectMethod('wallet', this)" type="button">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="truncate">محفظة رقمية</span>
+</button>
+<button class="method-btn py-space-sm px-1 rounded-lg bg-surface-container hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md font-medium flex flex-col items-center gap-1 transition-all" onclick="selectMethod('cash', this)" type="button">
+<span class="material-symbols-outlined text-[20px]">handshake</span>
+<span class="truncate">تسليم يدوي</span>
+</button>
+</div>
+</div>
+<!-- Amount Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface font-bold" for="amount-input">المبلغ المحوّل الفعلي</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low rounded-lg p-space-md pl-16 text-primary font-headline-sm text-headline-sm font-bold focus:outline-none focus:bg-surface-container transition-all" id="amount-input" required="" type="number" value="25000"/>
+<div class="absolute left-3 flex items-center gap-1 pointer-events-none">
+<span class="font-label-lg text-label-lg font-bold text-tertiary">ر.ي</span>
+</div>
+</div>
+</div>
+<!-- Transaction Number Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface font-bold" for="trx-id">رقم الحوالة أو السند (TRX)</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low rounded-lg p-space-md pr-11 text-on-surface font-body-md text-body-md font-semibold focus:outline-none focus:bg-surface-container transition-all" id="trx-id" placeholder="مثال: TRX-84920182" required="" type="text" value="TRX-9920148"/>
+<span class="material-symbols-outlined absolute right-3 text-[20px] text-on-surface-variant">tag</span>
+</div>
+</div>
+<!-- Upload Receipt Section -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-bold">صورة الإيصال أو كشف الحوالة</label>
+<span class="font-label-sm text-label-sm text-primary font-semibold">مطلوب للتأكيد</span>
+</div>
+<!-- Attached File Preview Component -->
+<div class="p-space-md rounded-lg bg-surface-container flex items-center justify-between" id="receipt-preview">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 relative overflow-hidden shadow-sm">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Receipt_Rajab_Transfer.jpg</span>
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">١.٤ ميجابايت • تم التحميل بنجاح</span>
+</div>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-bold shadow-sm hover:bg-surface-variant transition-all shrink-0" onclick="triggerFileInput()" type="button">
+            تغيير
+          </button>
+</div>
+<input accept="image/*,.pdf" class="hidden" id="file-picker" onchange="handleFileChange(event)" type="file"/>
+</div>
+<!-- Action Button -->
+<div class="pt-space-xs">
+<button class="w-full py-4 px-space-lg rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm font-bold shadow-[0_12px_28px_-4px_rgba(113,74,35,0.28)] active:scale-[0.98] transition-all flex items-center justify-center gap-space-xs" type="submit">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>دفع القسط وتأكيد العملية</span>
+</button><div class="mt-space-md p-space-lg rounded-xl bg-surface-container-low shadow-[0_4px_20px_-2px_rgba(92,61,46,0.10)] relative overflow-hidden flex flex-col gap-space-md ring-2 ring-primary-container/20"><div class="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-tertiary-fixed/30 blur-2xl pointer-events-none"></div><div class="flex flex-col items-center text-center gap-space-xs relative z-10"><div class="w-16 h-16 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shadow-md mb-1"><span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">verified</span></div><h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">تم رفع إيصال القسط بنجاح! 🌟</h4><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed px-1">تم إرسال إيصال السداد وهو الآن قيد التدقيق بانتظار موافقة الأدمن (منظم الجمعية) 👑.. سيتم اعتماد القسط وتحديث سجل الجمعية فور التأكيد.</p></div><div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col gap-1 relative z-10 shadow-sm"><div class="flex items-center justify-between"><span class="font-label-md text-label-md text-tertiary font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>الحالة: قيد المراجعة والاعتماد ⏳</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-tertiary-fixed-dim/30 text-on-tertiary-fixed-variant font-bold">قيد الانتظار</span></div><div class="font-body-sm text-body-sm text-on-surface-variant pt-1 border-t border-outline-variant/30 flex items-center justify-between"><span>المبلغ: <strong class="text-primary font-bold">25,000 ر.ي</strong></span><span class="text-outline">•</span><span>رقم السند: <strong class="text-on-surface font-semibold">TRX-9920148</strong></span></div></div><div class="flex flex-col gap-2 relative z-10 pt-1"><button class="w-full py-3.5 px-space-md rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm transition-all active:scale-[0.98] text-center" onclick="window.location.reload()" type="button">العودة للرئيسية</button><button class="w-full py-3 px-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-variant text-on-surface font-label-lg text-label-lg font-bold transition-all shadow-sm flex items-center justify-center gap-2" onclick="shareWhatsApp()" type="button"><span class="material-symbols-outlined text-[19px] text-tertiary">share</span><span>مشاركة الإشعار مع الأدمن عبر واتساب</span></button></div></div>
+<div class="flex items-center justify-center gap-1.5 mt-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px]">lock</span>
+<span class="font-body-sm text-body-sm">عملية مشفرة ومحفوظة في سجل صندوق الجمعية</span>
+</div>
+</div>
+</form>
+<!-- 4. Yemeni Traditional Architectural Ornament Divider -->
+<div class="flex items-center justify-center gap-space-sm opacity-60 py-space-xs">
+<div class="h-0.5 flex-1 bg-gradient-to-l from-outline-variant to-transparent rounded-full"></div>
+<div class="flex items-center gap-1 text-primary">
+<span class="w-2 h-2 rotate-45 bg-primary"></span>
+<span class="w-3 h-3 rotate-45 bg-tertiary-container"></span>
+<span class="w-2 h-2 rotate-45 bg-primary"></span>
+</div>
+<div class="h-0.5 flex-1 bg-gradient-to-r from-outline-variant to-transparent rounded-full"></div>
+</div>
+<!-- 5. Success / Under Review State Modal Card -->
+<div class="hidden flex-col gap-space-md p-space-lg rounded-xl bg-surface-container-lowest shadow-[0_12px_36px_-4px_rgba(92,61,46,0.18)] relative overflow-hidden" id="confirmation-modal">
+<!-- Glow ambient background -->
+<div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-tertiary-fixed/30 blur-2xl"></div>
+<!-- Top Success Icon Badge -->
+<div class="flex flex-col items-center text-center gap-space-sm relative z-10">
+<div class="w-16 h-16 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed shadow-md animate-bounce">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">تم رفع إيصال القسط بنجاح! 🌟</h3>
+<span class="font-label-md text-label-md text-tertiary font-bold">رقم المعاملة: <span id="modal-trx-id">TRX-9920148</span></span>
+</div>
+</div>
+<!-- Clarification Box -->
+<div class="bg-surface-container p-space-md rounded-lg flex items-start gap-space-xs relative z-10">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified_user</span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          إيصالك الآن قيد المراجعة والتدقيق بواسطة <strong>عمر اليافعي (أمين الصندوق)</strong>. سيتم إشعارك فور الاعتماد وتحديث جدول السداد التكافلي.
+        </p>
+</div>
+<!-- Quick Receipt Breakdown Grid -->
+<div class="grid grid-cols-2 gap-space-sm bg-surface-container-low p-space-md rounded-lg relative z-10">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">المبلغ المسدد</span>
+<span class="font-label-lg text-label-lg text-primary font-bold" id="modal-amount">25,000 ر.ي</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">حالة الدفعة</span>
+<span class="font-label-lg text-label-lg text-tertiary font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+            قيد المراجعة ⏳
+          </span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">تاريخ الإرسال</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold" id="modal-date">اليوم، ٠٢:١٥ م</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">الجمعية</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold truncate">صندوق العائلة</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-space-xs pt-space-xs relative z-10">
+<button class="w-full py-3.5 px-space-md rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-sm hover:opacity-95 transition-all active:scale-[0.98]" onclick="shareWhatsApp()">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>إرسال الإشعار للمنظم عبر واتساب</span>
+</button>
+<button class="w-full py-3 px-space-md rounded-lg bg-surface-container hover:bg-surface-variant text-on-surface font-label-lg text-label-lg font-bold transition-all" onclick="dismissConfirmation()">
+          العودة لتفاصيل الجمعية
+        </button>
+</div>
+</div>
+<!-- Micro Feedback Toast -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-space-md py-space-xs rounded-full font-label-md text-label-md flex items-center gap-1.5 opacity-0 transition-opacity pointer-events-none shadow-lg z-50" id="copy-toast">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">done_all</span>
+<span id="copy-text-msg">تم نسخ الرقم بنجاح</span>
+</div>
+</div>
+</div>
+<script>
+  function copyToClipboard(text, btnElement) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+    }
+    const toast = document.getElementById('copy-toast');
+    const msg = document.getElementById('copy-text-msg');
+    msg.textContent = 'تم نسخ الرقم: ' + text;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+    
+    const originalContent = btnElement.innerHTML;
+    btnElement.innerHTML = '<span class="material-symbols-outlined text-[16px]">done</span><span>تم</span>';
+    btnElement.classList.add('bg-secondary-container', 'text-on-secondary-container');
+    
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+      btnElement.innerHTML = originalContent;
+      btnElement.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+    }, 2000);
+  }
+
+  function selectMethod(method, btn) {
+    const buttons = document.querySelectorAll('.method-btn');
+    buttons.forEach(b => {
+      b.className = 'method-btn py-space-sm px-1 rounded-lg bg-surface-container hover:bg-surface-variant text-on-surface-variant font-label-md text-label-md font-medium flex flex-col items-center gap-1 transition-all';
+    });
+    btn.className = 'method-btn py-space-sm px-1 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold flex flex-col items-center gap-1 transition-all shadow-sm';
+  }
+
+  function triggerFileInput() {
+    document.getElementById('file-picker').click();
+  }
+
+  function handleFileChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const preview = document.getElementById('receipt-preview');
+      preview.innerHTML = `
+        <div class="flex items-center gap-space-sm min-w-0">
+          <div class="w-12 h-12 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 relative overflow-hidden shadow-sm">
+            <span class="material-symbols-outlined text-[24px]">image</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-label-md text-label-md text-on-surface font-bold truncate">${file.name}</span>
+              <span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">${(file.size / (1024 * 1024)).toFixed(1)} ميجابايت • جاهز للإرسال</span>
+          </div>
+        </div>
+        <button type="button" onclick="triggerFileInput()" class="px-space-sm py-1 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-bold shadow-sm hover:bg-surface-variant transition-all shrink-0">
+          استبدال
+        </button>
+      `;
+    }
+  }
+
+  function handlePaymentSubmit(event) {
+    event.preventDefault();
+    const amountVal = document.getElementById('amount-input').value;
+    const trxVal = document.getElementById('trx-id').value;
+    
+    document.getElementById('modal-amount').textContent = Number(amountVal).toLocaleString() + ' ر.ي';
+    document.getElementById('modal-trx-id').textContent = trxVal;
+    
+    const now = new Date();
+    const timeString = 'اليوم، ' + now.toLocaleTimeString('ar-YE', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('modal-date').textContent = timeString;
+
+    const modal = document.getElementById('confirmation-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function dismissConfirmation() {
+    const modal = document.getElementById('confirmation-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function shareWhatsApp() {
+    const trxVal = document.getElementById('trx-id').value;
+    const amountVal = document.getElementById('amount-input').value;
+    const message = encodeURIComponent(`السلام عليكم يا أمين الصندوق عمر، تم سداد قسط شهر رجب بقيمة ${amountVal} ر.ي للجمعية "صندوق العائلة التكافلي". رقم العملية: ${trxVal}`);
+    window.open(`https://wa.me/967771234567?text=${message}`, '_blank');
+  }
+</script></main></body></html>

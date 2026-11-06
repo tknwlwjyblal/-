@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">هيا نجمعها</string>
+    <string name="title_activity_main">هيا نجمعها</string>
+    <string name="package_name">com.hayanajmaha.app</string>
+    <string name="custom_url_scheme">com.hayanajmaha.app</string>
+</resources>

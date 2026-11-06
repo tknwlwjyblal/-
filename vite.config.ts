@@ -1,11 +1,15 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { existsSync } from 'node:fs';
 import {defineConfig} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
 
 export default defineConfig(() => {
   return {
+    define: {
+      __ANDROID_GOOGLE_AUTH_CONFIGURED__: JSON.stringify(existsSync('android/app/google-services.json')),
+    },
     plugins: [
       react(),
       tailwindcss(),
