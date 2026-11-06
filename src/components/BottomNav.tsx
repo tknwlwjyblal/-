@@ -42,7 +42,7 @@ export const BottomNav: React.FC<Props> = ({
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-[#fcf9f3]/95 backdrop-blur-xl border-t border-[#714a23]/10 shadow-[0_-4px_24px_rgba(92,61,46,0.08)] pb-safe select-none">
+    <nav className="app-bottom-nav fixed bottom-0 mx-auto z-40 bg-[#fcf9f3]/95 backdrop-blur-xl border-t border-[#714a23]/10 shadow-[0_-4px_24px_rgba(92,61,46,0.08)] pb-safe select-none">
       <div className="flex justify-around items-center h-16 px-2">
         {tabs.map((tab) => {
           const isActive =
@@ -54,7 +54,7 @@ export const BottomNav: React.FC<Props> = ({
             <button
               key={tab.id}
               onClick={() => onNavigate(tab.id)}
-              className={`flex flex-col items-center justify-center min-w-[64px] h-13 transition-all duration-200 active:scale-95 ${
+              className={`flex flex-col items-center justify-center min-w-0 flex-1 min-h-12 transition-all duration-200 active:scale-95 ${
                 isActive ? 'text-[#714a23] font-bold' : 'text-[#50453b] hover:text-[#714a23]'
               }`}
             >

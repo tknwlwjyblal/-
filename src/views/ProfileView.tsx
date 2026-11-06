@@ -1,3 +1,4 @@
+import { PhoneNotificationSettings } from '../components/PhoneNotificationSettings';
 import React, { useState, useEffect } from 'react';
 import { UserProfile, ActiveView, isUserProfileComplete, isSuperAdminEmail } from '../types';
 import { YEMENI_BANKS, YEMENI_WALLETS } from '../data/mockData';
@@ -41,12 +42,6 @@ export const ProfileView: React.FC<Props> = ({
         userProfile.beneficiaryName !== userProfile.fullName
     )
   );
-
-  // Settings Toggles (saved locally in component state for user preference)
-  const [notifyDueReminders, setNotifyDueReminders] = useState(true);
-  const [notifyApprovals, setNotifyApprovals] = useState(true);
-  const [notifyWhatsApp, setNotifyWhatsApp] = useState(true);
-  const [notifyLottery, setNotifyLottery] = useState(true);
 
   const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(
@@ -379,128 +374,7 @@ export const ProfileView: React.FC<Props> = ({
               </div>
             </div>
 
-            {/* 4. SETTINGS SECTION: Notification & Alert Preferences */}
-            <div className="bg-white rounded-2xl p-4 shadow-xs border border-[#e5e2dc] flex flex-col gap-3">
-              <div className="flex items-center gap-2 pb-2.5 border-b border-[#f0eee8]">
-                <div className="w-8 h-8 rounded-lg bg-[#f0eee8] text-[#714a23] flex items-center justify-center">
-                  <span className="material-symbols-outlined text-lg">notifications_active</span>
-                </div>
-                <div>
-                  <h3 className="text-xs font-black text-[#1c1c18]">إعدادات التنبيهات والإشعارات</h3>
-                  <p className="text-[10px] text-[#50453b]">التحكم في وصول تذكيرات الأقساط والأدوار</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2.5 text-xs">
-                {/* Toggle 1 */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#f6f3ed]">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-base text-[#714a23]">calendar_clock</span>
-                    <div>
-                      <p className="font-bold text-[#1c1c18]">تذكير موعد القسط قبل 3 أيام</p>
-                      <p className="text-[10px] text-[#50453b]">إشعار تلقائي قبل حلول موعد الاستحقاق</p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setNotifyDueReminders(!notifyDueReminders);
-                      showToast(notifyDueReminders ? 'تم إيقاف تذكير موعد القسط' : 'تم تفعيل تذكير موعد القسط');
-                    }}
-                    className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                      notifyDueReminders ? 'bg-[#2D6A4F]' : 'bg-[#d4c3b7]'
-                    }`}
-                  >
-                    <span
-                      className={`block w-4 h-4 rounded-full bg-white shadow-sm transition-transform absolute top-1 ${
-                        notifyDueReminders ? 'left-1' : 'right-1'
-                      }`}
-                    />
-                  </button>
-                </div>
-
-                {/* Toggle 2 */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#f6f3ed]">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-base text-[#714a23]">verified</span>
-                    <div>
-                      <p className="font-bold text-[#1c1c18]">إشعار تعميد واعتماد الإيصال</p>
-                      <p className="text-[10px] text-[#50453b]">تنبيه فوري عند قبول إيصالك من المنظم</p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setNotifyApprovals(!notifyApprovals);
-                      showToast(notifyApprovals ? 'تم إيقاف إشعار التعميد' : 'تم تفعيل إشعار التعميد');
-                    }}
-                    className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                      notifyApprovals ? 'bg-[#2D6A4F]' : 'bg-[#d4c3b7]'
-                    }`}
-                  >
-                    <span
-                      className={`block w-4 h-4 rounded-full bg-white shadow-sm transition-transform absolute top-1 ${
-                        notifyApprovals ? 'left-1' : 'right-1'
-                      }`}
-                    />
-                  </button>
-                </div>
-
-                {/* Toggle 3 */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#f6f3ed]">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-base text-[#714a23]">chat</span>
-                    <div>
-                      <p className="font-bold text-[#1c1c18]">تنبيهات وتذكيرات واتساب</p>
-                      <p className="text-[10px] text-[#50453b]">إرسال تذكير مباشر على رقمك اليمني</p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setNotifyWhatsApp(!notifyWhatsApp);
-                      showToast(notifyWhatsApp ? 'تم إيقاف تنبيهات واتساب' : 'تم تفعيل تنبيهات واتساب');
-                    }}
-                    className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                      notifyWhatsApp ? 'bg-[#2D6A4F]' : 'bg-[#d4c3b7]'
-                    }`}
-                  >
-                    <span
-                      className={`block w-4 h-4 rounded-full bg-white shadow-sm transition-transform absolute top-1 ${
-                        notifyWhatsApp ? 'left-1' : 'right-1'
-                      }`}
-                    />
-                  </button>
-                </div>
-
-                {/* Toggle 4 */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#f6f3ed]">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-base text-[#714a23]">casino</span>
-                    <div>
-                      <p className="font-bold text-[#1c1c18]">إشعارات القرعة والأدوار الجديدة</p>
-                      <p className="text-[10px] text-[#50453b]">تنبيه فوري عند إجراء القرعة وتوزيع الأدوار</p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setNotifyLottery(!notifyLottery);
-                      showToast(notifyLottery ? 'تم إيقاف إشعار القرعة' : 'تم تفعيل إشعار القرعة');
-                    }}
-                    className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                      notifyLottery ? 'bg-[#2D6A4F]' : 'bg-[#d4c3b7]'
-                    }`}
-                  >
-                    <span
-                      className={`block w-4 h-4 rounded-full bg-white shadow-sm transition-transform absolute top-1 ${
-                        notifyLottery ? 'left-1' : 'right-1'
-                      }`}
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <PhoneNotificationSettings />
 
             {/* 5. SETTINGS SECTION: Account Security & Cloud Storage */}
             <div className="bg-white rounded-2xl p-4 shadow-xs border border-[#e5e2dc] flex flex-col gap-3">

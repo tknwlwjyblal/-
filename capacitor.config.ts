@@ -9,10 +9,13 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   android: {
     includePlugins: hasAndroidFirebaseConfig
-      ? ['@capacitor/app', '@capacitor-firebase/authentication']
-      : ['@capacitor/app'],
+      ? ['@capacitor/app', '@capacitor/local-notifications', '@capacitor/push-notifications', '@capacitor-firebase/authentication']
+      : ['@capacitor/app', '@capacitor/local-notifications'],
   },
   plugins: {
+    SystemBars: { insetsHandling: 'css', initialViewportFitValueHint: 'cover', style: 'DARK' },
+    LocalNotifications: { smallIcon: 'ic_stat_notification', iconColor: '#714a23' },
+    PushNotifications: { presentationOptions: [] },
     FirebaseAuthentication: {
       skipNativeAuth: true,
       providers: ['google.com'],

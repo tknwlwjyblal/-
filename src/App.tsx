@@ -1,3 +1,5 @@
+import { startDeviceNotifications, showAccountNotification, unregisterDevice } from './services/deviceNotifications';
+import { isNativeNotificationRecipient } from './services/notificationPolicy';
 import { Capacitor } from '@capacitor/core';
 import { App as NativeApp } from '@capacitor/app';
 import { useState, useEffect } from 'react';
@@ -67,6 +69,23 @@ export default function App() {
   const [installPlatform, setInstallPlatform] = useState<'ios' | 'android'>('ios');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const deviceUid = isAuthenticated ? auth.currentUser?.uid : undefined;
+  const [notificationPreferenceRevision, setNotificationPreferenceRevision] = useState(0);
+  useEffect(() => {
+    const update = () => setNotificationPreferenceRevision(value => value + 1);
+    window.addEventListener('phone-notification-preference-changed', update);
+    return () => window.removeEventListener('phone-notification-preference-changed', update);
+  }, []);
+  useEffect(() => {
+    if (!deviceUid) return;
+    let stopped = false;
+    let cleanup: (() => Promise<void>) | undefined;
+    void startDeviceNotifications(deviceUid, () => setCurrentView('notifications')).then(result => {
+      if (stopped) void result(); else cleanup = result;
+    }).catch(() => {});
+    return () => { stopped = true; void cleanup?.(); };
+  }, [deviceUid, notificationPreferenceRevision]);
 
   // Global App Settings controlled by Super Admin
   const [appSettings, setAppSettings] = useState<GlobalAppSettings>({
@@ -167,7 +186,10 @@ export default function App() {
     let unsubscribePayments: (() => void) | null = null;
     let unsubscribeSettings: (() => void) | null = null;
 
+    let previousDeviceUid: string | undefined;
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      if (previousDeviceUid && previousDeviceUid !== user?.uid) await unregisterDevice().catch(() => {});
+      previousDeviceUid = user?.uid;
       if (user) {
         setIsAuthenticated(true);
         const userDocRef = doc(db, 'users', user.uid);
@@ -244,6 +266,7 @@ export default function App() {
 
         // 3. Real-time sync for notifications with strict role-based separation
         const notifsCol = collection(db, 'notifications');
+        let hasNotificationsSnapshot = false;
         unsubscribeNotifs = onSnapshot(
           notifsCol,
           (snapshot) => {
@@ -259,6 +282,17 @@ export default function App() {
                 )
                 .map((c) => c.id)
             );
+
+            if (hasNotificationsSnapshot && !snapshot.metadata.fromCache) {
+              for (const change of snapshot.docChanges()) {
+                if (change.type !== 'added' || change.doc.metadata.hasPendingWrites) continue;
+                const notification = { ...change.doc.data(), id: change.doc.id } as AppNotification;
+                if (isNativeNotificationRecipient(notification, user.uid, user.email, myManagedCircleIds)) {
+                  void showAccountNotification(notification).catch(() => {});
+                }
+              }
+            }
+            if (!snapshot.metadata.fromCache) hasNotificationsSnapshot = true;
 
             snapshot.forEach((docItem) => {
               const data = docItem.data() as AppNotification;
@@ -603,6 +637,7 @@ export default function App() {
 
   const handleSignOut = async () => {
     try {
+      await unregisterDevice().catch(() => {});
       await logoutUser();
     } catch {
       // ignore
@@ -639,9 +674,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fcf9f3] text-[#1c1c18] flex justify-center antialiased selection:bg-[#ffdcbf] selection:text-[#2d1600]">
+    <div className="app-shell bg-[#fcf9f3] text-[#1c1c18] flex justify-center antialiased selection:bg-[#ffdcbf] selection:text-[#2d1600]">
       {/* Seamless full mobile container for all phones */}
-      <div className="w-full max-w-md min-h-screen bg-[#fcf9f3] flex flex-col relative shadow-sm border-x border-[#d4c3b7]/20">
+      <div className="app-frame bg-[#fcf9f3] flex flex-col relative shadow-sm">
         {/* Offline Alert if network drops */}
         {!isOnline && (
           <div className="bg-[#ba1a1a] text-white text-[11px] font-bold py-1.5 px-3 text-center shadow-sm flex items-center justify-center gap-1.5 z-50">
@@ -749,7 +784,7 @@ export default function App() {
             </button>
           </div>
         ) : (
-          <div className="flex flex-col min-h-screen bg-[#fcf9f3] relative">
+          <div className="flex flex-col flex-1 min-w-0 bg-[#fcf9f3] relative">
             {/* Header */}
             <Header
               currentView={currentView}
@@ -760,7 +795,7 @@ export default function App() {
             />
 
             {/* Active Screen View */}
-            <main className="flex-1 w-full flex flex-col">
+            <main className="app-content flex-1 w-full min-w-0 flex flex-col">
               {currentView === 'home' && (
                 <HomeView
                   circles={myVisibleCircles}

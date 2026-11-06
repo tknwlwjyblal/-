@@ -35,6 +35,18 @@ service cloud.firestore {
       allow delete: if isValidId(userId) && isSuperAdmin();
     }
 
+    // Device tokens are private to the authenticated account, never public profile data.
+    match /users/{userId}/devices/{deviceId} {
+      allow read, delete: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+        && request.resource.data.keys().hasOnly(['token', 'platform', 'updatedAt'])
+        && request.resource.data.token is string
+        && request.resource.data.token.size() > 0
+        && request.resource.data.token.size() <= 4096
+        && request.resource.data.platform == 'android'
+        && request.resource.data.updatedAt == request.time;
+    }
+
     // Savings Circles collection
     match /circles/{circleId} {
       allow get, list: if isSignedIn();

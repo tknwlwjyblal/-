@@ -1,0 +1,22 @@
+{
+  "name": "haya-notification-service",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "../node_modules/.bin/esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --packages=external --outfile=lib/index.js",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "node --import tsx test/recipients.test.ts"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0",
+    "firebase-functions": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "tsx": "^4.21.0"
+  }
+}

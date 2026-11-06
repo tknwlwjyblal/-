@@ -291,7 +291,7 @@ export const CreateCircleView: React.FC<Props> = ({ onCircleCreated, onNavigate,
       <section className="flex flex-col gap-3.5 mb-4">
         {/* Name Field */}
         <div className="flex flex-col gap-1.5">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap gap-1 justify-between items-center">
             <label className="text-xs font-bold text-[#1c1c18] flex items-center gap-1.5" htmlFor="circleName">
               <span className="material-symbols-outlined text-base text-[#714a23]">edit_note</span>
               <span>اسم الجمعية</span>
@@ -343,7 +343,7 @@ export const CreateCircleView: React.FC<Props> = ({ onCircleCreated, onNavigate,
 
         {/* Share Price Input (سعر السهم الشهري) */}
         <div className="flex flex-col gap-1.5">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap gap-1 justify-between items-center">
             <label className="text-xs font-bold text-[#1c1c18] flex items-center gap-1.5" htmlFor="sharePrice">
               <span className="material-symbols-outlined text-base text-[#714a23]">payments</span>
               <span>سعر السهم (قسط السهم الواحد شهرياً)</span>
@@ -366,14 +366,14 @@ export const CreateCircleView: React.FC<Props> = ({ onCircleCreated, onNavigate,
             </div>
           </div>
           {/* Quick preset chips */}
-          <div className="flex items-center gap-1.5 mt-1 overflow-x-auto pb-0.5">
+          <div className="flex flex-wrap items-center gap-1.5 mt-1 pb-0.5">
             <span className="text-[10px] text-[#50453b] shrink-0">اقتراحات:</span>
             {[1000, 2000, 5000, 10000, 20000].map((amt) => (
               <button
                 key={amt}
                 type="button"
                 onClick={() => setSharePrice(amt)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all shrink-0 cursor-pointer ${
+                className={`min-h-9 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all shrink-0 cursor-pointer ${
                   sharePrice === amt
                     ? 'bg-[#714a23] text-white'
                     : 'bg-[#f0eee8] text-[#50453b] hover:bg-[#e5e2dc]'

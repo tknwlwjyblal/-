@@ -24,6 +24,12 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/bun" --no-package-lock bun@1.4.4
           "$RUNNER_TEMP/bun/node_modules/.bin/bun" install --frozen-lockfile
+      - name: Check notification service
+        run: |
+          "$RUNNER_TEMP/bun/node_modules/.bin/bun" install --frozen-lockfile --cwd functions
+          npm --prefix functions run check
+          npm --prefix functions test
+          npm --prefix functions run build
       - name: Install Android platform
         run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
       - name: Configure optional Firebase Android registration

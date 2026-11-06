@@ -56,7 +56,7 @@ export const AuthView: React.FC<Props> = ({ userProfile, onLoginSuccess }) => {
   };
 
   return (
-    <div className="flex flex-col relative w-full flex-1 bg-[#fcf9f3] px-4 min-h-screen pb-12 text-right selection:bg-[#ffdcbf]" dir="rtl">
+    <div className="flex flex-col relative w-full flex-1 bg-[#fcf9f3] px-4 min-h-0 pb-8 text-right selection:bg-[#ffdcbf]" dir="rtl">
       {/* Subtle Heritage Qamariyah Ambient Glow */}
       <div className="absolute -top-12 -right-16 w-64 h-64 pointer-events-none opacity-20 -z-10">
         <svg className="w-full h-full text-[#896425]" fill="none" stroke="currentColor" viewBox="0 0 200 200">
@@ -90,7 +90,7 @@ export const AuthView: React.FC<Props> = ({ userProfile, onLoginSuccess }) => {
 
       {/* Official App Logo Showcase - Hero Section */}
       <div className="w-full flex flex-col items-center text-center mt-3 mb-4">
-        <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-3xl p-3 bg-gradient-to-b from-white via-[#f6f3ed] to-[#e5e2dc] shadow-xl border border-[#d4c3b7]/30 flex items-center justify-center">
+        <div className="relative auth-logo shrink-0 rounded-3xl p-3 bg-gradient-to-b from-white via-[#f6f3ed] to-[#e5e2dc] shadow-xl border border-[#d4c3b7]/30 flex items-center justify-center">
           <img
             alt="شعار هيا نجمعها الرسمي"
             className="w-full h-full object-contain rounded-2xl drop-shadow-md"
@@ -99,7 +99,7 @@ export const AuthView: React.FC<Props> = ({ userProfile, onLoginSuccess }) => {
         </div>
 
         <div className="mt-4 px-2">
-          <h1 className="text-2xl font-black text-[#1c1c18] tracking-tight">هَيَّا نَجْمَعْهَا</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-[#1c1c18] tracking-tight">هَيَّا نَجْمَعْهَا</h1>
           <p className="text-xs text-[#50453b] font-medium mt-1">
             إدارة الجمعيات الروتينية والادخار العائلي بأمان وثقة
           </p>

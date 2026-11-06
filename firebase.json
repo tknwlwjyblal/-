@@ -1,0 +1,4 @@
+{
+  "functions": [{ "source": "functions", "codebase": "notifications", "runtime": "nodejs22", "predeploy": ["npm --prefix functions run build"] }],
+  "firestore": [{ "database": "ai-studio-0a3c0d30-3145-41b0-ac2f-a8de927afa02", "rules": "firestore.rules" }]
+}

@@ -1,3 +1,4 @@
+import { PhoneNotificationSettings } from '../components/PhoneNotificationSettings';
 import React, { useState } from 'react';
 import { AppNotification, ActiveView, SavingsCircle, isNotificationForUser } from '../types';
 import { db, auth } from '../firebase';
@@ -271,6 +272,8 @@ export const NotificationsView: React.FC<Props> = ({
           </button>
         ))}
       </div>
+
+      <div className="mb-4"><PhoneNotificationSettings /></div>
 
       {/* Notifications List */}
       <div className="flex flex-col gap-2.5">
