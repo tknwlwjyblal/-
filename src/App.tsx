@@ -1,3 +1,4 @@
+import { AppUpdatePrompt } from './components/AppUpdatePrompt';
 import { startDeviceNotifications, showAccountNotification, unregisterDevice } from './services/deviceNotifications';
 import { isNativeNotificationRecipient } from './services/notificationPolicy';
 import { Capacitor } from '@capacitor/core';
@@ -146,6 +147,7 @@ export default function App() {
   useEffect(() => {
     if (Capacitor.getPlatform() !== 'android') return;
     const listener = NativeApp.addListener('backButton', () => {
+      if (document.querySelector('[data-app-update-dialog]')) { window.dispatchEvent(new Event('dismiss-app-update')); return; }
       if (isSearchOpen) setIsSearchOpen(false);
       else if (isInstallModalOpen) setIsInstallModalOpen(false);
       else if (currentView !== 'home') setCurrentView('home');
@@ -663,6 +665,7 @@ export default function App() {
 
   return (
     <div className="app-shell bg-[#fcf9f3] text-[#1c1c18] flex justify-center antialiased selection:bg-[#ffdcbf] selection:text-[#2d1600]">
+      <AppUpdatePrompt />
       {/* Seamless full mobile container for all phones */}
       <div className="app-frame bg-[#fcf9f3] flex flex-col relative shadow-sm">
         {/* Offline Alert if network drops */}

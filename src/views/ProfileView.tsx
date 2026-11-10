@@ -1,3 +1,4 @@
+import { CheckForUpdatesButton } from '../components/AppUpdatePrompt';
 import { PhoneNotificationSettings } from '../components/PhoneNotificationSettings';
 import React, { useState, useEffect } from 'react';
 import { UserProfile, ActiveView, isUserProfileComplete, isSuperAdminEmail } from '../types';
@@ -375,6 +376,7 @@ export const ProfileView: React.FC<Props> = ({
             </div>
 
             <PhoneNotificationSettings />
+            <CheckForUpdatesButton />
 
             {/* 5. SETTINGS SECTION: Account Security & Cloud Storage */}
             <div className="bg-white rounded-2xl p-4 shadow-xs border border-[#e5e2dc] flex flex-col gap-3">

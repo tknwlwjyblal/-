@@ -11,7 +11,9 @@
     "lint": "tsc --noEmit",
     "android:sync": "npm run build && cap sync android",
     "android:debug": "npm run android:sync && cd android && ./gradlew assembleDebug",
-    "android:release": "npm run android:sync && cd android && ./gradlew assembleRelease"
+    "android:release": "npm run android:sync && cd android && ./gradlew assembleRelease",
+    "update:publish": "node scripts/publish-update.mjs",
+    "update:check": "node scripts/publish-update.mjs --check"
   },
   "dependencies": {
     "@capacitor-firebase/authentication": "8",

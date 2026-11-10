@@ -172,3 +172,9 @@ img { max-width: 100%; }
   .balance-card { height: 153px; padding: 12px; }
   .service-tile { min-height: 73px; }
 }
+
+.app-update-dialog {
+  max-height: calc(100vh - var(--app-safe-top) - var(--app-safe-bottom) - 3rem);
+  max-height: calc(100dvh - var(--app-safe-top) - var(--app-safe-bottom) - 3rem);
+  overflow-y: auto;
+}
