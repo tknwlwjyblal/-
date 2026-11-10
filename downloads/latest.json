@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "appId": "com.hayanajmaha.app",
+  "versionCode": 5,
+  "versionName": "1.0.4",
+  "apkUrl": "https://raw.githubusercontent.com/tknwlwjyblal/-/76c3f30abc488b44097afe1df1cc587743daaac4/downloads/haya-najmaha-debug.apk",
+  "sha256": "cf63338d0540174090bdcbcdb706c6f527775b7c91829b9bc1a716a912628e34",
+  "sizeBytes": 16523055,
+  "notes": "إضافة فحص تحديثات التطبيق وتنزيلها بأمان مع عرض تقدم التنزيل، ثم تثبيتها بموافقة Android."
+}
